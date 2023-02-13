@@ -1,8 +1,8 @@
-from kernels.DummyKernel import DummyKernel
+from kernels.dummy_kernel import DummyKernel
 
-class helloworld_kernel_2(DummyKernel):
-    def __init__(self, base_addr, dev):
-        super().__init__(base_addr, dev)
+class HelloworldKernel2(DummyKernel):
+    def __init__(self, dev, base_addr):
+        super().__init__(dev, base_addr)
        
 
     def get_kernel_result(self, input):

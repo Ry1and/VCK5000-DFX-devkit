@@ -1,14 +1,16 @@
-# virtual class
-class DummyKernel:
-    def __init__(self, base_addr, dev):
-        self.base_addr = base_addr
-        self.dev = dev
-        # Register Offsets
+from kernels.dummy_kernel import DummyKernel
+from functools import reduce
+import time
+
+class HelloworldKernelBase(DummyKernel):
+    def __init__(self, dev, base_addr):
+        super().__init__(dev, base_addr)
         self.ctrl_offset = 0x00
         self.ret_offset = 0x10
         self.size_offset = 0x24
         self.in_r1_offset = 0x18
         self.in_r2_offset = 0x1c
+
 
     def set_start(self):
         self.dev.dma_write(self.base_addr + self.ctrl_offset, int(0x1).to_bytes(4, "little"))
@@ -30,7 +32,12 @@ class DummyKernel:
 
     def wait_on_done(self):
         while not self.get_done():
-            pass
+            print("kernel processing...\n")
+            time.sleep(0.001)
+
+    def read_test(self):
+        print(self.base_addr + self.ctrl_offset)
+        return self.dev.dma_read(self.base_addr + self.ctrl_offset, 1)
 
     # virtual method
     def get_kernel_result(self, in_arr):

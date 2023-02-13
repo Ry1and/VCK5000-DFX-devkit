@@ -1,9 +1,9 @@
-from kernels.DummyKernel import DummyKernel
+from kernels.helloworld_kernel_base import HelloworldKernelBase
 from functools import reduce
 
-class helloworld_kernel_0(DummyKernel):
-    def __init__(self, base_addr, dev):
-        super().__init__(base_addr, dev)
+class HelloworldKernel0(HelloworldKernelBase):
+    def __init__(self, dev, base_addr):
+        super().__init__(dev, base_addr)
        
 
     def get_kernel_result(self, in_arr):

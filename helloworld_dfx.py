@@ -3,10 +3,9 @@ import numpy as np
 from operator import xor
 from functools import reduce
 from time import sleep
-from kernels.helloworld_kernel_0 import helloworld_kernel_0
+from kernels.helloworld_kernel_0 import HelloworldKernel0
 from shells.simple_static_shell import simple_static_shell
-from kernels.DummyKernel import DummyKernel
-from kernels.helloworld_kernel_1 import helloworld_kernel_1
+from kernels.helloworld_kernel_1 import HelloworldKernel1
 
 
 
@@ -48,8 +47,8 @@ def simple_kernel_test(d, k):
     print('Generating ' + str(test_size * 4) + ' bytes of test data')
     payload = os.urandom(test_size * 4)
 
-    d.dma_write(bram_buffer_base_addr, payload)
-    k.set_fetch_offset(bram_buffer_base_addr)
+    d.dma_write(bram_buffer_base_addr + 16, payload)
+    k.set_fetch_offset(bram_buffer_base_addr + 16)
     k.set_size(test_size)
     k.set_start()
     k.wait_on_done()
@@ -105,35 +104,42 @@ if __name__ == "__main__":
 
     axis_base_addr = 0x0201_0000_0000
 
-
-    dram_base_addr_1 = 0x0
-    dram_base_addr_2 = 0x00C0_0000_0000
+    
+ 
 
     # Init shell
-    dev = simple_static_shell(0, dram_base_addr_1, bram_buffer_base_addr)
+    dev = simple_static_shell(0, 0, bram_buffer_base_addr)
 
 
 
     # Kernel interfaces are the same for this demo
-    kernel_0 = helloworld_kernel_0(kernel_0_base_addr, dev)
-    kernel_1 = helloworld_kernel_1(kernel_1_base_addr, dev)
+    kernel_0 = HelloworldKernel0(dev, kernel_0_base_addr)
+    kernel_1 = HelloworldKernel1(dev, kernel_1_base_addr )
 
-    #simple_kernel_test(dev, kernel_0)
-    dummy_rw_test(dev)
-
-    xor_kernel_test(dev)
-
-    get_sbi_status()
-
+    #get_sbi_status()
     
     # enable sbi
-    # dev.enable_sbi()
+    dev.enable_sbi()
+    #get_sbi_status()
 
-    # print('SBI_CSR_MODE: ' + str(hex(dev.get_sbi_mode())))
-    # print('SBI_CSR_STATUS: ' + str(hex(dev.get_sbi_status())))
-    # print('SBI_CSR_IRQ_STATUS: ' + str(hex(dev.get_sbi_irq_status())))
-    # print('SBI_CSR_CTRL: ' + str(hex(dev.get_sbi_ctrl())))
+    dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel_i_RP0_RM0_inst_0_partial.pdi')
+    simple_kernel_test(dev, kernel_1)
+
+    print(0, bin(int.from_bytes(dev.dma_read(0x001_012b_0018, 1), "little")))
+
+    #dummy_rw_test(dev)
+
+    #xor_kernel_test(dev)
+
+    #res = kernel_0.read_test()
+    
+
+
+    
+
 
     # Load kernel 0
-    #dev.sbi_reconfigure('./dfx_binaries/rm1.pdi')
+    dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel_i_RP0_RM1_inst_0_partial.pdi')
+
+    simple_kernel_test(dev, kernel_0)
     
