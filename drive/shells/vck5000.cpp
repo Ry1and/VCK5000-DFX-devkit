@@ -3,8 +3,7 @@
 #include <iostream>
 
 
-#include "../dma_rw.c"
-
+#include "../dma_io.h"
 
 using namespace std;
 
@@ -12,12 +11,6 @@ class vck5000
 {
 private:
     int id = 0;
-    string dma_h2c_dname =  "/dev/xdma0_h2c_0";
-    string dma_c2h_dname =  "/dev/xdma0_c2h_0";
-    string dma_c2h_bypass_dname = "/dev/xdma0_bypass_c2h_0";
-    char* dma_h2c_dname_c = strcpy(new char[dma_h2c_dname.length() + 1], dma_h2c_dname.c_str());
-    char* dma_c2h_dname_c = strcpy(new char[dma_c2h_dname.length() + 1], dma_c2h_dname.c_str());
-    char* dma_c2h_bypass_dname_c = strcpy(new char[dma_c2h_bypass_dname.length() + 1], dma_c2h_bypass_dname.c_str());
 
     // Addresses
     int bypass_offset = 0x000100000000;
@@ -73,3 +66,10 @@ vck5000::~vck5000()
 }
 
 
+int vck5000::get_sbi_mode(){
+    dma_read(XDMA_C2H_0, sbi_base_addr, 0, 4, 0, 1, )
+
+
+
+
+}

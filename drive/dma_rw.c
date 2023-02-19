@@ -18,6 +18,7 @@
 
 #include "cdev_sgdma.h"
 
+#include "dma_io.h"
 
 static int eop_flush = 0;
 
