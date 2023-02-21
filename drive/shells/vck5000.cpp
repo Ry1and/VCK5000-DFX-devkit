@@ -67,6 +67,7 @@ vck5000::~vck5000()
 
 
 int vck5000::get_sbi_mode(){
+    char *buf = (char *)malloc(4);
     dma_read(XDMA_C2H_0, sbi_base_addr, 0, 4, 0, 1, )
 
 
