@@ -21,7 +21,9 @@
 
 
 
-#define printhex(chars) for (int i = 0; i < sizeof(chars); i++) printf("%02hhx", chars[i]); 
+#define printhex(chars) for (int i = 0; i < sizeof(chars); i++) printf("%02hhx ", chars[i]); 
+
+#define string_to_char_array(in) strcpy(new char[in.length() + 1], in.c_str())
 
 static int dma_write(char *devname, uint64_t addr, uint64_t aperture,
 		    uint64_t size, uint64_t offset, uint64_t count,
