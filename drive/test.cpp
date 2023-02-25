@@ -1,13 +1,25 @@
-#include <iostream>
 #include <string>
 #include <cstring>
+#include <iostream>
+#include <random>
+#include <climits>
+#include <algorithm>
+#include <functional>
+#include <vector>
 
-#include "dma_io.h"
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include "utils.h"
 
 using namespace std;
 
+
+
 #define string_to_char_array(in) strcpy(new char[in.length() + 1], in.c_str())
 #define xdma_h2c_0 "/dev/xdma0_h2c_0"
+
+
 
 
 int returnint(char *outbuf) {
@@ -19,19 +31,67 @@ int returnint(char *outbuf) {
 
 int main(){
 
-    string tstr = "tesrererer";
-    char *tstr2 = string_to_char_array(tstr);
-    long long *tint = (long long *)tstr2;
+    //string tstr = "test";
+    //char *buf = (char *)malloc(16);
+    //char *tstr2 = string_to_char_array(tstr);
+    //gen_bytes(buf, 10);
+    //char t[4]= "zxv";
+    // int k = 0;
+    // printf("%x\n", 'z');
+    // printf("%x\n", 'x');
+    // printf("%x\n", 'v');
+    // printf("%x\n", 'a');
+    //printf("%x\n", int_from_bytes(t));
+    //strcpy(buf, tstr.c_str());
+    
+    // char *buf = (char *)malloc(4);
+
+    // gen_bytes(buf, 4);
+    // gen_bytes(buf, 4);
+    // gen_bytes(buf, 4);
+    // gen_bytes(buf, 4);
+
+    //long *tint = (long *)buf;
+
+   
+    // char *buf = (char *)malloc(4);
+    // int test = 0x9;
+
+    // memcpy(buf, &test, 4);
+
+    // printf("%x\n", int_from_bytes(buf));
 
 
+    // timespec *tp = new timespec();
+    // clock_gettime(CLOCK_MONOTONIC,tp);
+    
+    // printf("%ld\n", tp->tv_nsec);
+    // usleep(1);
+    // clock_gettime(CLOCK_MONOTONIC,tp);
+    // printf("%ld\n", tp->tv_nsec);
 
-    cout << tstr << endl;
-    printf("size: %lu\n", tstr.length());
-    printf("size: %lu\n", sizeof(tstr2));
-    printf("size: %lu\n", sizeof(*tint));
-    printhex(tstr2);
+    int test = 0x12345678;
+    int buf = 0;
+    memcpy(&buf, &test, 4);
+    printf("%03x\n", buf);
+    buf = 0;
+    memcpy(&buf, &test, 3);
+    printf("%x\n", buf);
+    buf = 0;
+    memcpy(&buf, &test, 2);
+    printf("%x\n", buf);
+    buf = 0;
+    memcpy(&buf, &test, 1);
+    printf("%x\n", buf);
+    buf = 0;
 
-    printf("%d", returnint(tstr2));
+
+    // cout << tstr << endl;
+    // printf("size: %lu\n", tstr.length());
+    // printf("size: %lu\n", strlen(buf));
+    // printf("size: %lu\n", sizeof(*tint));
+    // printhex(buf);
+
 
     //printf("%s\n", string_to_char_array(xdma_h2c_0));
 

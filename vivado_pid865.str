@@ -1,0 +1,190 @@
+/*
+
+Xilinx Vivado v2022.2 (64-bit) [Major: 2022, Minor: 2]
+SW Build: 3671981 on Fri Oct 14 04:59:54 MDT 2022
+IP Build: 3669848 on Fri Oct 14 08:30:02 MDT 2022
+
+Process ID (PID): 865
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Thu Feb 23 10:40:47 AEDT 2023
+Time zone: 	Australian Eastern Standard Time (Australia/Sydney)
+
+OS: Ubuntu
+OS Version: 5.15.68.1-microsoft-standard-WSL2
+OS Architecture: amd64
+Available processors (cores): 16
+
+Display: 192.168.240.1:0.0
+Screen size: 2560x1440
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+
+Java version: 	11.0.11 64-bit
+Java home: 	/tools/Xilinx/Vivado/2022.2/tps/lnx64/jre11.0.11_9
+Java executable: 	/tools/Xilinx/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Djdk.gtk.version=2, -Dsun.java2d.uiScale.enabled=false, -Xverify:none, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, --add-opens=java.desktop/com.sun.awt=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=60m, -XX:MaxNewSize=60m, -Xms256m, -Xmx3072m, -Xss5m, -Xrs]
+Java initial memory (-Xms): 	256 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	root
+User home directory: /root
+User working directory: /home/shaoqian/xilinx_workspace/dfx-kernel
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /tools/Xilinx/Vivado
+HDI_APPROOT: /tools/Xilinx/Vivado/2022.2
+RDI_DATADIR: /tools/Xilinx/Vivado/2022.2/data
+RDI_BINDIR: /tools/Xilinx/Vivado/2022.2/bin
+
+Vivado preferences file: /root/.Xilinx/Vivado/2022.2/vivado.xml
+Vivado preferences directory: /root/.Xilinx/Vivado/2022.2/
+Vivado layouts directory: /root/.Xilinx/Vivado/2022.2/data/layouts
+PlanAhead jar file: 	/tools/Xilinx/Vivado/2022.2/lib/classes/planAhead.jar
+Vivado log file: 	/home/shaoqian/xilinx_workspace/dfx-kernel/vivado.log
+Vivado journal file: 	/home/shaoqian/xilinx_workspace/dfx-kernel/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-865-DESKTOP-6CAVDAS
+
+Xilinx Environment Variables
+----------------------------
+RDI_APPROOT: /tools/Xilinx/Vivado/2022.2
+RDI_BASEROOT: /tools/Xilinx/Vivado
+RDI_BINROOT: /tools/Xilinx/Vivado/2022.2/bin
+RDI_BUILD: yes
+RDI_DATADIR: /tools/Xilinx/Vivado/2022.2/data
+RDI_INSTALLROOT: /tools/Xilinx
+RDI_INSTALLVER: 2022.2
+RDI_JAVA_PLATFORM: 
+RDI_JAVA_VERSION: 11.0.11_9
+RDI_LIBDIR: /tools/Xilinx/Vivado/2022.2/lib/lnx64.o/Ubuntu:/tools/Xilinx/Vivado/2022.2/lib/lnx64.o
+RDI_OPT_EXT: .o
+RDI_PATCHROOT: 
+RDI_PLATFORM: lnx64
+RDI_PREPEND_PATH: /tools/Xilinx/Vitis/2022.2/bin:/tools/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64
+RDI_PROG: /tools/Xilinx/Vivado/2022.2/bin/unwrapped/lnx64.o/vivado
+RDI_TPS_ROOT: /tools/Xilinx/Vivado/2022.2/tps/lnx64
+RDI_USE_JDK11: True
+XILINX: /tools/Xilinx/Vivado/2022.2/ids_lite/ISE
+XILINXD_LICENSE_FILE: 2100@rossini.cse.unsw.edu.au
+XILINX_DSP: /tools/Xilinx/Vivado/2022.2/ids_lite/ISE
+XILINX_HLS: /tools/Xilinx/Vitis_HLS/2022.2
+XILINX_PLANAHEAD: /tools/Xilinx/Vivado/2022.2
+XILINX_SDK: /tools/Xilinx/Vitis/2022.2
+XILINX_VITIS: /tools/Xilinx/Vitis/2022.2
+XILINX_VIVADO: /tools/Xilinx/Vivado/2022.2
+XILINX_VIVADO_HLS: /tools/Xilinx/Vivado/2022.2
+
+
+GUI allocated memory:	308 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 1,864 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,814 MB. GUI used memory: 57 MB. Current time: 2/23/23, 10:40:48 AM AEDT
+selectList(PAResourceQtoS.SyntheticaGettingStartedView_RECENT_PROJECTS, "/home/shaoqian/xilinx_workspace/hash_vck5000/hash_vck5000.xpr", 3); // b.a
+// [GUI Memory]: 83 MB (+84232kb) [00:01:48]
+// [Engine Memory]: 1,846 MB (+1784711kb) [00:01:48]
+// Opening Vivado Project: /home/shaoqian/xilinx_workspace/hash_vck5000/hash_vck5000.xpr. Version: Vivado v2022.2 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FLOW_ADDED
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_CURRENT
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 1,956 MB. GUI used memory: 56 MB. Current time: 2/23/23, 10:42:28 AM AEDT
+// HMemoryUtils.trashcanNow. Engine heap size: 1,956 MB. GUI used memory: 56 MB. Current time: 2/23/23, 10:42:53 AM AEDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 87 MB (+494kb) [00:02:41]
+// [Engine Memory]: 1,967 MB (+29501kb) [00:02:41]
+// [GUI Memory]: 111 MB (+20702kb) [00:02:42]
+// WARNING: HEventQueue.dispatchEvent() is taking  2386 ms.
+// Tcl Message: open_project /home/shaoqian/xilinx_workspace/hash_vck5000/hash_vck5000.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/mnt/e/xilinx_workspace/VCK5000/dfx_kernels'. INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2022.2/data/ip'. 
+// [Engine Memory]: 2,069 MB (+4211kb) [00:02:43]
+// HMemoryUtils.trashcanNow. Engine heap size: 2,095 MB. GUI used memory: 70 MB. Current time: 2/23/23, 10:43:19 AM AEDT
+// Tcl Message: open_project: Time (s): cpu = 00:00:21 ; elapsed = 00:00:56 . Memory (MB): peak = 7313.941 ; gain = 216.125 ; free physical = 27086 ; free virtual = 37255 
+// Project name: hash_vck5000; location: /home/shaoqian/xilinx_workspace/hash_vck5000; part: xcvc1902-vsvd1760-2MP-e-S
+// Elapsed time: 56 seconds
+dismissDialog("Open Project"); // bq
+// [GUI Memory]: 118 MB (+1351kb) [00:02:48]
+// Tcl Message: update_compile_order -fileset sources_1 
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 1654 ms. Increasing delay to 4962 ms.
+// Elapsed time: 68 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd)]", 2, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd)]", 2, true, false, false, false, false, true); // D - Double Click - Node
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 131 MB (+7540kb) [00:03:55]
+// Tcl Message: open_bd_design {/home/shaoqian/xilinx_workspace/hash_vck5000/hash_vck5000.srcs/sources_1/bd/design_1/design_1.bd} 
+// Tcl Message: Reading block design file </home/shaoqian/xilinx_workspace/hash_vck5000/hash_vck5000.srcs/sources_1/bd/design_1/design_1.bd>... Adding component instance block -- xilinx.com:ip:versal_cips:3.3 - versal_cips_0 Adding component instance block -- xilinx.com:ip:axi_noc:1.0 - axi_noc_0 Adding component instance block -- xilinx.com:hls:xor_kernel:1.0 - xor_kernel_0 
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: Adding component instance block -- xilinx.com:ip:smartconnect:1.0 - smartconnect_0 Adding component instance block -- xilinx.com:hls:hash_adapter:1.0 - hash_adapter_0 
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// HMemoryUtils.trashcanNow. Engine heap size: 2,352 MB. GUI used memory: 81 MB. Current time: 2/23/23, 10:44:33 AM AEDT
+// [Engine Memory]: 2,848 MB (+707693kb) [00:04:03]
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_OPEN_DIAGRAM
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_OPEN_DIAGRAM
+// [Engine Memory]: 3,088 MB (+102101kb) [00:04:13]
+// [GUI Memory]: 141 MB (+2631kb) [00:04:13]
+// WARNING: HEventQueue.dispatchEvent() is taking  1483 ms.
+// Tcl Message: INFO: [Device 21-403] Loading part xcvc1902-vsvd1760-2MP-e-S 
+// HMemoryUtils.trashcanNow. Engine heap size: 3,112 MB. GUI used memory: 88 MB. Current time: 2/23/23, 10:44:49 AM AEDT
+// Elapsed time: 19 seconds
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // t
+// Tcl Message: open_bd_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:19 . Memory (MB): peak = 8328.984 ; gain = 810.766 ; free physical = 25848 ; free virtual = 36143 
+dismissDialog("Open Block Design"); // bq
+// JavaFX intialization before: 1677109490258
+// JavaFX initialization after: 1677109490708
