@@ -106,12 +106,12 @@ int dummy_rw_test(){
     //dma_write(XDMA_H2C_0, hash_kernel_0_base_addr, 0, 4, 0, 1, lsb_c);
     
     
-    dma_read(XDMA_C2H_0, kernel_0_base_addr + ctrl_offset, 0, 4, 0, 1, dma_buf);
-    dma_bypass_read(XDMA_BYPASS, kernel_0_base_addr + ctrl_offset, 'w', bypass_buf);
+    dma_read(XDMA_C2H_0, 0x0001012b0100, 0, 4, 0, 1, dma_buf);
+    dma_bypass_read(XDMA_BYPASS, 0x100, 'w', bypass_buf);
 
     
-    printf("%08x", int_from_bytes(dma_buf));
-    printf("%08x", int_from_bytes(bypass_buf));
+    printf("%08x\n", int_from_bytes(dma_buf));
+    printf("%08x\n", int_from_bytes(bypass_buf));
 
     // cout << endl;
     
