@@ -22,11 +22,6 @@ using namespace std;
 
 
 
-int returnint(char *outbuf) {
-    printhex(outbuf);
-    return (int)*outbuf;
-}
-
 
 
 int main(){
@@ -34,7 +29,8 @@ int main(){
     //string tstr = "test";
     //char *buf = (char *)malloc(16);
     //char *tstr2 = string_to_char_array(tstr);
-    //gen_bytes(buf, 10);
+    char *new_bytes = gen_bytes(16);
+    printhex(new_bytes, 16);
     //char t[4]= "zxv";
     // int k = 0;
     // printf("%x\n", 'z');
@@ -70,20 +66,20 @@ int main(){
     // clock_gettime(CLOCK_MONOTONIC,tp);
     // printf("%ld\n", tp->tv_nsec);
 
-    int test = 0x12345678;
-    int buf = 0;
-    memcpy(&buf, &test, 4);
-    printf("%03x\n", buf);
-    buf = 0;
-    memcpy(&buf, &test, 3);
-    printf("%x\n", buf);
-    buf = 0;
-    memcpy(&buf, &test, 2);
-    printf("%x\n", buf);
-    buf = 0;
-    memcpy(&buf, &test, 1);
-    printf("%x\n", buf);
-    buf = 0;
+    // int test = 0x12345678;
+    // int buf = 0;
+    // memcpy(&buf, &test, 4);
+    // printf("%03x\n", buf);
+    // buf = 0;
+    // memcpy(&buf, &test, 3);
+    // printf("%x\n", buf);
+    // buf = 0;
+    // memcpy(&buf, &test, 2);
+    // printf("%x\n", buf);
+    // buf = 0;
+    // memcpy(&buf, &test, 1);
+    // printf("%x\n", buf);
+    // buf = 0;
 
 
     // cout << tstr << endl;

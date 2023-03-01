@@ -82,7 +82,7 @@ int VCK5000::get_sbi_irq_status() {
 }
 
 int VCK5000::enable_sbi() {
-    dma_write(XDMA_H2C_0, sbi_base_addr + 0x4, 0, 4, 0, 1, bytes_from_int((char *)malloc(4), 0x9), 0);
+    dma_write(XDMA_H2C_0, sbi_base_addr + 0x4, 0, 4, 0, 1, bytes_from_int(0x9), 0);
 
     return 0;
 }

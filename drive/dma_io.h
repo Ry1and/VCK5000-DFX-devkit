@@ -18,6 +18,11 @@
 
 #define XDMA_BYPASS (char *)"/dev/xdma0_bypass"
 
+#define XDMA_READ(addr, buffer) dma_read(XDMA_C2H_0, addr, 0, 4, 0, 1, buffer);
+#define XDMA_WRITE_DATA(addr, data) dma_write(XDMA_H2C_0, addr, 0, 4, 0, 1, data, 0);
+#define XDMA_WRITE_FILE(addr, path) dma_write(XDMA_H2C_0, addr, 0, 4, 0, 1, data, 1);
+
+
 int dma_write(char *devname, uint64_t addr, uint64_t aperture,
 		    uint64_t size, uint64_t offset, uint64_t count,
 		    char *in, int path);

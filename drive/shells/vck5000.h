@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <string>
 
 class VCK5000
 {
@@ -28,7 +29,8 @@ private:
     timespec reconf_start;
     timespec reconf_end;
     
-    
+    int get_cfu_stream_busy();
+    int cfu_monitor();
 
 public:
     VCK5000(int sid);
@@ -42,6 +44,5 @@ public:
     int enable_sbi();
     int sbi_reconfigure(string path);
 
-    int get_cfu_stream_busy();
-    int cfu_monitor();
+
 };
