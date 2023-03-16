@@ -1,2 +1,2 @@
 # dfx-kernel
-A simple Python kernel for FPGA DFX apps
+An userspace driver program for FPGA(RTL/HLS) applications that are DFX enabled.
