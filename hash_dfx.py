@@ -11,6 +11,11 @@ import pdb
 
 
 
+test_data = [0xc57108dd95a45d3f1fe3b5eb3cc691dedbb1450f679f2b54c291a3682ef820f65f4542c5737b440fd7afdda19ebf3735d7d98a013e75de330cd6fb12a817159d
+ ,0x6710a9421a5a88b568eb0c8763dde93274d594c279203265ffd6e1a5b3affd8b26058962cdeab0269d386be65c76953992d4f8f44c68084a29ab55c207f8ec0c
+,0x2ab0eb5ebf8d874dc702b63eb94e5a0ebc1189919210753217d5701e2ffc4af734d8613ac13077cff7771dbfe900cf67c2e3a47a4696fa2350e8096d793d4ed4]
+
+
 def dummy_rw_test(d):
     test_size = 1
     print('Generating ' + str(test_size * 4) + ' bytes of test data')
@@ -23,27 +28,51 @@ def dummy_rw_test(d):
 
 
 def kernel_test(d, k):
-    test_size = 1
-    payload = os.urandom(64)
-    d.dma_write(dram_base_addr_1, payload)
-    print("dram input: ", hex(int.from_bytes(d.dma_read(dram_base_addr_1, 64), "little")))
+    batch_size = 4 * 1024 * 1024
+    payload = os.urandom(64 * (batch_size - len(test_data)))
+    
+    for i in range(len(test_data)):
+        d.dma_write(dram_base_addr_1 + i * 64, test_data[i].to_bytes(64, "little"))
+        print("input", i, ": ", hex(test_data[i]))
+    
+    d.dma_write(dram_base_addr_1 + len(test_data) * 64, payload)
+    
+
+
 
     #k.test()
     k.set_input_offset(dram_base_addr_1)
-    k.set_output_offset(dram_base_addr_1 + 0x100)
+    k.set_output_offset(dram_base_addr_1 + 0x10000000)
     print("input_address: ", hex(int.from_bytes(d.dma_read(hash_kernel_0_base_addr + 0x10, 8), "little")))
     print("output_address: ", hex(int.from_bytes(d.dma_read(hash_kernel_0_base_addr + 0x1c, 8), "little")))
-    
+    print("axi_control_register: ", bin(int.from_bytes(d.dma_read(hash_kernel_0_base_addr, 4), "little")))
     k.set_start()
 
 
     print("axi_control_register: ", bin(int.from_bytes(d.dma_read(hash_kernel_0_base_addr, 4), "little")))
-    
+    print("kernel processing")
     k.wait_on_done()
+    print("done")
     print("axi_control_register: ", bin(int.from_bytes(d.dma_read(hash_kernel_0_base_addr, 4), "little")))
-    res = d.dma_read(dram_base_addr_1 + 0x100, 64)
-    print(hex(int.from_bytes(payload,"little")))
-    print(hex(int.from_bytes(res,"little")))
+    
+    
+    
+    res = d.dma_read(dram_base_addr_1 + 0x10000000, 64)
+    
+
+    for i in range(len(test_data)):
+        print("output ", i, ": ", hex(int.from_bytes(d.dma_read(dram_base_addr_1 + 0x10000000 + i * 64, 64), "little")))
+
+    #print(hex(int.from_bytes(payload,"little")))
+    # print("output0: " + hex(int.from_bytes(res,"little")))
+    # res = d.dma_read(dram_base_addr_1 + 0x10000000 + 64, 64)
+    # print("output1: " + hex(int.from_bytes(res,"little")))
+    # res = d.dma_read(dram_base_addr_1 + 0x10000000 + 128, 64)
+    # print("output2: " + hex(int.from_bytes(res,"little")))
+    # res = d.dma_read(dram_base_addr_1 + 0x10000000 + 192, 64)
+    # print("output3: " + hex(int.from_bytes(res,"little")))
+    # res = d.dma_read(dram_base_addr_1 + 0x10000000 + 256, 64)
+    # print("output4: " + hex(int.from_bytes(res,"little")))
 
     
     # res = d.dma_read(dram_base_addr_1, test_size * 64)
@@ -81,7 +110,7 @@ if __name__ == "__main__":
 
 
     #simple_kernel_test(dev, kernel_0)
-    #dummy_rw_test(versal_dev)
+    dummy_rw_test(versal_dev)
 
     
     kernel_test(versal_dev, hash_kernel_0)

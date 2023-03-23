@@ -40,5 +40,4 @@ class xor_kernel(DummyKernel):
 
     def wait_on_done(self):
         while not self.get_done():
-            print("kernel processing...\n")
-            time.sleep(0.001)
+            time.sleep(0.01)

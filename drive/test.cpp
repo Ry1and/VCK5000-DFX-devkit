@@ -29,8 +29,20 @@ int main(){
     //string tstr = "test";
     //char *buf = (char *)malloc(16);
     //char *tstr2 = string_to_char_array(tstr);
-    char *new_bytes = gen_bytes(16);
-    printhex(new_bytes, 16);
+    // char *new_bytes = gen_bytes(16);
+    // printhex(new_bytes, 16);
+
+    // uint64_t longer = 0x123456789abcdeff;
+    // uint32_t shorter1 = longer & 0xffffffff;
+    // uint32_t shorter2 = longer >> 32;
+
+
+    // printf("0x%x\n", shorter1);
+    // printf("0x%x\n", shorter2);
+    printf("%lu", sizeof(long long));
+    printf("%lu", sizeof(long));
+    printf("%lu", sizeof(int));
+
     //char t[4]= "zxv";
     // int k = 0;
     // printf("%x\n", 'z');

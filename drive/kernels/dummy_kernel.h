@@ -1,4 +1,5 @@
-#include "vck5000.h"
+#ifndef DUMMY_KERNEL_H__
+#define DUMMY_KERNEL_H__
 
 #include <cstdint>
 
@@ -11,19 +12,10 @@ protected:
     uint64_t base_addr;
     
 public:
-    DummyKernel(__uint64_t addr);
+    DummyKernel(uint64_t addr){
+        base_addr = addr;
+    };
     ~DummyKernel();
 };
 
-DummyKernel::DummyKernel(uint64_t addr)
-{
-    base_addr = addr;
-}
-
-DummyKernel::~DummyKernel()
-{
-}
-
-
-
- 
+#endif

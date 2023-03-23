@@ -2,11 +2,14 @@
 #include <cstring>
 #include <iostream>
 #include <unistd.h>
-#include <filesystem>
+#include <fcntl.h>
 #include <thread>
+#include <sys/stat.h>
+#include <pthread.h>
 
-#include "dma_io.h"
-#include "utils.h"
+
+#include "../dma_io.h"
+#include "../utils.h"
 #include "vck5000.h"
 
 using namespace std;
@@ -34,13 +37,13 @@ int VCK5000::get_cfu_stream_busy(){
     }
 
 
-int VCK5000::cfu_monitor(){
-    while (!get_cfu_stream_busy()) {
+void VCK5000::cfu_monitor(){
+    while (!this->get_cfu_stream_busy()) {
         printf("timer waiting cfu...");
         usleep(1);
     }
 
-    while (get_cfu_stream_busy()) {
+    while (this->get_cfu_stream_busy()) {
         printf("cfu busy...");
         usleep(1);
     }
@@ -87,19 +90,29 @@ int VCK5000::enable_sbi() {
     return 0;
 }
 
-int VCK5000::sbi_reconfigure(string path) {
-    uintmax_t pdi_size = filesystem::file_size(path);
-    printf("Size of reconf image: %lu\n", pdi_size);
+int VCK5000::sbi_reconfigure(char *path) {
+    struct stat st;
+    long pdi_size = 0;
+    if (!stat(path, &st)){
+        pdi_size = st.st_size;
+    } else {
+        perror("stat");
+    }
+    printf("Size of reconf image: %ld\n", pdi_size);
     printf("start reconfiguration");
-
-    thread conf_timer(cfu_monitor);
+    //thread conf_timer(&VCK5000::cfu_monitor, this);
     clock_gettime(CLOCK_MONOTONIC, &reconf_start);
 
-    
+    dma_write(XDMA_H2C_0, 0x102100000, 4096, pdi_size, 0, 1, path, 1);
 
-    dma_write(XDMA_H2C_0, 0x102100000, 4096, pdi_size, 0, 1, string_to_char_array(path), 1);
+    //conf_timer.join();
 
-    conf_timer.join();
+    while (get_cfu_stream_busy()) {
+        printf("cfu busy...");
+        usleep(1);
+    }
+
+    clock_gettime(CLOCK_MONOTONIC, &reconf_end);
 
     printf("reconfiguration successful");
     printf("reconf began on: %ld", reconf_start.tv_nsec);
@@ -109,3 +122,5 @@ int VCK5000::sbi_reconfigure(string path) {
 
     return 0;
 }
+
+

@@ -1,5 +1,3 @@
-
-
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -22,7 +20,6 @@ using random_bytes_engine = independent_bits_engine<
     std::default_random_engine, CHAR_BIT, unsigned char>;
 
 
-#define string_to_char_array(in) strcpy(new char[in.length() + 1], in.c_str())
 
 uint64_t hash_kernel_0_base_addr = 0x020100010000;
 uint64_t dram_base_addr_1 = 0x0;
@@ -107,11 +104,14 @@ int dummy_rw_test(){
     
     
     dma_read(XDMA_C2H_0, 0x0001012b0100, 0, 4, 0, 1, dma_buf);
-    dma_bypass_read(XDMA_BYPASS, 0x100, 'w', bypass_buf);
-
-    
     printf("%08x\n", int_from_bytes(dma_buf));
-    printf("%08x\n", int_from_bytes(bypass_buf));
+    //dma_bypass_read(XDMA_BYPASS, 0x100, 'w', bypass_buf);
+    //printf("%08x\n", int_from_bytes(bypass_buf));
+
+    dma_read(XDMA_C2H_0, 0x020100010000, 0, 4, 0, 1, dma_buf);
+    printf("%08x\n", int_from_bytes(dma_buf));
+    //dma_bypass_read(XDMA_BYPASS_C2H_3, 0x00, 'w', bypass_buf);
+    //printf("%08x\n", int_from_bytes(bypass_buf));
 
     // cout << endl;
     
