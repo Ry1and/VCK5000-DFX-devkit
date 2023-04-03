@@ -12,10 +12,10 @@ protected:
     uint64_t base_addr;
     
 public:
-    DummyKernel(uint64_t addr){
-        base_addr = addr;
+    DummyKernel(){
+        base_addr = 0x020100010000;
     };
-    ~DummyKernel();
+    ~DummyKernel() {};
 };
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "app_kernel.h"
 
+
+
+
 class HashKernel : public AppKernel
 {
 private:
@@ -11,8 +14,8 @@ private:
     uint64_t output_addr_offset_0;
     uint64_t output_addr_offset_1;
 public:
-    HashKernel(uint64_t addr)
-    : AppKernel(base_addr)
+    HashKernel()
+    : AppKernel()
     {
         input_addr_offset_0 = 0x10;
         input_addr_offset_1 = 0x14;
@@ -20,7 +23,7 @@ public:
         output_addr_offset_1 = 0x20;
     }
 
-    ~HashKernel();
+    ~HashKernel() {}
 
     void set_input_offset(uint64_t offset_val);
     void set_output_offset(uint64_t offset_val);

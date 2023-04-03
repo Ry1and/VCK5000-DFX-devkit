@@ -1,0 +1,18 @@
+.vscode/
+
+
+# Ignore all
+drive/kernels/*.o
+
+drive/shells/*.o
+
+drive/tests/*.o
+# Unignore all with extensions
+
+drive/*
+!drive/*.*
+drive/*.o
+
+
+
+

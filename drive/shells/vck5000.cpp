@@ -31,7 +31,8 @@ VCK5000::~VCK5000()
 */
 int VCK5000::get_cfu_stream_busy(){
         char *buf = (char *)malloc(4);
-        dma_read(XDMA_BYPASS, cfu_base_addr + cfu_status_offset, 0,4,0,1, buf);
+        dma_bypass_read(XDMA_BYPASS, cfu_base_addr + cfu_status_offset, 'w', buf);
+        //dma_read(XDMA_BYPASS, cfu_base_addr + cfu_status_offset, 0,4,0,1, buf);
         return *buf & 0x1;
 
     }
@@ -99,25 +100,25 @@ int VCK5000::sbi_reconfigure(char *path) {
         perror("stat");
     }
     printf("Size of reconf image: %ld\n", pdi_size);
-    printf("start reconfiguration");
+    printf("start reconfiguration\n");
     //thread conf_timer(&VCK5000::cfu_monitor, this);
-    clock_gettime(CLOCK_MONOTONIC, &reconf_start);
+    //clock_gettime(CLOCK_MONOTONIC, &reconf_start);
 
     dma_write(XDMA_H2C_0, 0x102100000, 4096, pdi_size, 0, 1, path, 1);
 
     //conf_timer.join();
 
-    while (get_cfu_stream_busy()) {
-        printf("cfu busy...");
-        usleep(1);
-    }
+    // while (get_cfu_stream_busy()) {
+    //     printf("cfu busy...");
+    //     usleep(1);
+    // }
 
-    clock_gettime(CLOCK_MONOTONIC, &reconf_end);
+    //clock_gettime(CLOCK_MONOTONIC, &reconf_end);
 
-    printf("reconfiguration successful");
-    printf("reconf began on: %ld", reconf_start.tv_nsec);
-    printf("reconf ended on: %ld", reconf_end.tv_nsec);
-    printf("time taken in nano second: %ld", reconf_end.tv_nsec - reconf_start.tv_nsec);
+    printf("reconfiguration successful\n");
+    // printf("reconf began on: %ld\n", reconf_start.tv_nsec);
+    // printf("reconf ended on: %ld\n", reconf_end.tv_nsec);
+    // printf("time taken in nano second: %ld\n", reconf_end.tv_nsec - reconf_start.tv_nsec);
 
 
     return 0;

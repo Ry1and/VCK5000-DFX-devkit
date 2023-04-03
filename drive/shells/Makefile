@@ -1,7 +1,7 @@
 all: $(CPP_OBJS)
 
 CXX := g++ 
-CXXFLAGS := -I../ -pthread
+CXXFLAGS := -I../
 
 CPP_SRC = $(wildcard *.cpp)
 

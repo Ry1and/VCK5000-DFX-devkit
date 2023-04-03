@@ -14,15 +14,16 @@ protected:
     int get_done();
 
 public:
-    AppKernel(uint64_t base_addr)
-    : DummyKernel(base_addr)
+    AppKernel()
+    : DummyKernel()
     {
         ctrl_offset = 0x00;
     }
-    ~AppKernel();
+    ~AppKernel() {};
 
     void set_start();
     void wait_on_done();
+    void get_ctrl_reg();
 };
 
 

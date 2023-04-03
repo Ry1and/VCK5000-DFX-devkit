@@ -1,6 +1,8 @@
 #ifndef VCK_H__
 #define VCK_H__
 
+#include <sys/time.h>
+
 using namespace std;
 
 class VCK5000
@@ -28,8 +30,8 @@ private:
     
 
     // timer
-    timespec reconf_start;
-    timespec reconf_end;
+    struct timespec reconf_start ;
+    struct timespec reconf_end ;
 
     // ddr
 
