@@ -24,3 +24,8 @@ void HashKernel::set_output_offset(uint64_t offset_val){
 
 
 }
+
+void HashKernel::set_batch_size(uint32_t size) {
+    XDMA_WRITE_DATA(base_addr + batch_size_offset, bytes_from_int(size));
+
+}

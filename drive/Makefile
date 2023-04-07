@@ -1,4 +1,4 @@
-all: $(SUBDIRS) $(C_OBJS) $(CPP_OBJS) dma_test hash_test
+all: $(SUBDIRS) $(C_OBJS) $(CPP_OBJS) hash_test
 
 CXX := g++ 
 CC := gcc
@@ -19,10 +19,9 @@ SUBDIRS := shells kernels tests
 $(SUBDIRS):
 	$(MAKE) -C $@
 
-dma_test: tests/dma_test.o dma_rw.o utils.o
-	g++ $^ -o $@
 
-hash_test: test_main.o tests/hash_test.o tests/reconf_test.o dma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o
+
+hash_test: test_main.o tests/reconf_test.o tests/dma_test.o dma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o
 	g++ $^ -o $@
 
 

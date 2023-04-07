@@ -4,9 +4,11 @@
 #include "shells/vck5000.h"
 
 
+
 int main() {
     VCK5000 vb = VCK5000(0);
     HashKernel hk = HashKernel();
+    //ddr_dummy_test();
     //kernel_test(hk);
     reconf_test(vb);
     //kernel_test(hk);

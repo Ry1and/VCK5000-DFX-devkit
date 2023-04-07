@@ -13,6 +13,7 @@ private:
     uint64_t input_addr_offset_1;
     uint64_t output_addr_offset_0;
     uint64_t output_addr_offset_1;
+    uint64_t batch_size_offset;
 public:
     HashKernel()
     : AppKernel()
@@ -21,13 +22,14 @@ public:
         input_addr_offset_1 = 0x14;
         output_addr_offset_0 = 0x1c;
         output_addr_offset_1 = 0x20;
+        batch_size_offset = 0x28;
     }
 
     ~HashKernel() {}
 
     void set_input_offset(uint64_t offset_val);
     void set_output_offset(uint64_t offset_val);
-
+    void set_batch_size(uint32_t size);
 };
 
 #endif

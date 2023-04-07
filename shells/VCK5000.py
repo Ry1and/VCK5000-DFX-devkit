@@ -22,8 +22,8 @@ class VCK5000:
         self.id = id
         self.h2c = os.open('/dev/xdma' + str(id) + '_h2c_' + str(0), os.O_WRONLY)
         self.c2h = os.open('/dev/xdma' + str(id) + '_c2h_' + str(0), os.O_RDONLY)
-        self.bypass_rd = os.open('/dev/xdma' + str(id) + '_bypass_c2h_0', os.O_RDONLY)
-        self.bypass_wr = os.open('/dev/xdma' + str(id) + '_bypass_h2c_0', os.O_WRONLY)
+        # self.bypass_rd = os.open('/dev/xdma' + str(id) + '_bypass_c2h_0', os.O_RDONLY)
+        # self.bypass_wr = os.open('/dev/xdma' + str(id) + '_bypass_h2c_0', os.O_WRONLY)
         #self.bypass_fd = open('/dev/xdma' + str(id) + '_bypass', 'r+b', 0)
    
         #self.bypass = mmap(self.bypass_fd.fileno(), flags=MAP_SHARED, prot=PROT_READ | PROT_WRITE, length=128*1024*1024)
@@ -51,18 +51,18 @@ class VCK5000:
 
 
 
-    def bypass_read(self, addr, size):
-        #return self.bypass[addr: addr + size]
-        # self.bypass.seek(addr)
-        # return self.bypass.read(size)
-        return os.pread(self.bypass_rd, size, addr)
+    # def bypass_read(self, addr, size):
+    #     #return self.bypass[addr: addr + size]
+    #     # self.bypass.seek(addr)
+    #     # return self.bypass.read(size)
+    #     return os.pread(self.bypass_rd, size, addr)
         
-    def bypass_write(self, addr, data):
-        self.bypass[addr: addr + len(data)] = np.frombuffer(data, dtype=np.uint8)
-        # self.bypass.seek(addr)
-        # print(data)
-        # print(self.bypass.write(data))
-        #return os.pwrite(self.bypass_wr, data, addr)
+    # def bypass_write(self, addr, data):
+    #     self.bypass[addr: addr + len(data)] = np.frombuffer(data, dtype=np.uint8)
+    #     # self.bypass.seek(addr)
+    #     # print(data)
+    #     # print(self.bypass.write(data))
+    #     #return os.pwrite(self.bypass_wr, data, addr)
 
     def dma_read(self, addr, size):
         #print(os.lseek(self.c2h, 0, os.SEEK_CUR))
@@ -122,12 +122,13 @@ class VCK5000:
         print("start reconfiguration")
 
         reconf_start = time.clock_gettime_ns(time.CLOCK_MONOTONIC)
-        conf_timer = threading.Thread(target=self.cfu_monitor)
-        conf_timer.start()
+        # conf_timer = threading.Thread(target=self.cfu_monitor)
+        # conf_timer.start()
         subprocess.run(["./dma-tools/dma_to_device", "-v", "-d", "/dev/xdma0_h2c_0", "-k", "4096", "-f", pdi_path, "-s" ,str(pdi_size), "-a", "0x102100000"])
 
-        conf_timer.join()
-
+        # conf_timer.join()
+        reconf_end = time.clock_gettime_ns(time.CLOCK_MONOTONIC)
+        
         print("reconfiguration success")
         print("reconf began at: ", reconf_start)
         print("reconf ended at: ", reconf_end)
