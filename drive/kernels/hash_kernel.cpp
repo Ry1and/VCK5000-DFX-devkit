@@ -1,5 +1,5 @@
 #include "hash_kernel.h"
-#include "../dma_io.h"
+#include "../xdma_io.h"
 #include "../utils.h"
 
 void HashKernel::set_input_offset(uint64_t offset_val){
@@ -28,4 +28,10 @@ void HashKernel::set_output_offset(uint64_t offset_val){
 void HashKernel::set_batch_size(uint32_t size) {
     XDMA_WRITE_DATA(base_addr + batch_size_offset, bytes_from_int(size));
 
+}
+
+uint64_t HashKernel::get_input_offset() {
+    long long out;
+    dma_read(XDMA_C2H_0, base_addr + input_addr_offset_0, 0, 8, 0, 1, (char *)&out);
+    return out;
 }

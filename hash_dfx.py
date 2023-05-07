@@ -25,6 +25,10 @@ groestl_gt = [0xa66d7e14a882b406bbb2329e38b25eeab82759a1f3cc84d073a6e02fc4664c00
               0x0,
               0x0]
 
+wire_gt = [0x54686520717569636b2062726f776e20666f78206a756d7073206f76657220746865206c617a7920646f672e2054686520717569636b2062726f776e20666f78,
+           0x6710a9421a5a88b568eb0c8763dde93274d594c279203265ffd6e1a5b3affd8b26058962cdeab0269d386be65c76953992d4f8f44c68084a29ab55c207f8ec0c,
+            0x2ab0eb5ebf8d874dc702b63eb94e5a0ebc1189919210753217d5701e2ffc4af734d8613ac13077cff7771dbfe900cf67c2e3a47a4696fa2350e8096d793d4ed4]
+
 def dummy_rw_test(d):
     test_size = 1
     print('Generating ' + str(test_size * 4) + ' bytes of test data')
@@ -96,7 +100,7 @@ def get_sbi_status(dev):
 
 
 if __name__ == "__main__":
-    hash_kernel_0_base_addr = 0x0201_0000_0000
+    hash_kernel_0_base_addr = 0x0201_0001_0000
 
     
    
@@ -114,22 +118,64 @@ if __name__ == "__main__":
     dummy_rw_test(versal_dev)
 
     
-    kernel_test(versal_dev, hash_kernel_0)
+    #kernel_test(versal_dev, hash_kernel_0)
 
     
-    
+    # xppu_base_addr = 0x001_0131_0000
+    # print("dynamic reconfig en : ", hex(int.from_bytes(versal_dev.dma_read(xppu_base_addr + 0xFC, 4), 'little')))
+    # versal_dev.dma_write(xppu_base_addr + 0xFC, (0xFF).to_bytes(4, 'little'))
+    # print("dynamic reconfig en : ", hex(int.from_bytes(versal_dev.dma_read(xppu_base_addr + 0xFC, 4), 'little')))
     #get_sbi_status()
     
+    
+    
+    # versal_dev.dma_write(0x001_0126_0324, (0x1).to_bytes(4, 'little'))
+    # sleep(5)
+    # print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
+    # versal_dev.dma_write(xppu_base_addr + 0xFC, (0xFF).to_bytes(4, 'little'))
+
     # enable sbi
-    #versal_dev.enable_sbi()
+    print('SBI_CTRL: ' + str(hex(versal_dev.get_sbi_ctrl())))
+    versal_dev.enable_sbi()
+    print('cmn_buf_space: ' ,int.from_bytes(versal_dev.dma_read(0x10122000c, 4), 'little') & 0b1111111111000)
+    # print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
+    # print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
+    #print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
     #get_sbi_status(versal_dev)
-
+    print('SBI_CTRL: ' + str(hex(versal_dev.get_sbi_ctrl())))
     # Load kernel 0
-    #versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel/design_1_i_RP_HASH_0_keccak512_inst_0_partial.pdi')
+    # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak+groestl/compressed/design_1_i_RP_HASH_0_keccak512_inst_0_partial.pdi')
+    # for i in range (5):
+    # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.pdi')
 
-    # 
+    
 
-    #kernel_test(versal_dev, hash_kernel_0)
+
+
+    # kernel_test(versal_dev, hash_kernel_0)
+    # print("cfu ctrl: ", bin(int.from_bytes(versal_dev.dma_read(0x1012b001c, 4), 'little')))
+    # print("cfu ISR: ", bin(int.from_bytes(versal_dev.dma_read(0x1012b0000, 4), 'little')))
+    # versal_dev.dma_write(0x1012b0028, (0b10000).to_bytes(2, 'little'))
+    # versal_dev.dma_write(0x1012b001c, (0b10000).to_bytes(2, 'little'))
+    # print("cfu ctrl: ", bin(int.from_bytes(versal_dev.dma_read(0x1012b001c, 4), 'little')))
+    # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_keccak512_inst_0_partial.pdi')
+    # versal_dev.cfu_reconfigure("/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/uncompressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.rcdo")
+    print('cmn_buf_space: ' ,int.from_bytes(versal_dev.dma_read(0x10122000c, 4), 'little') & 0b1111111111000)
+    #print('PMC_INT_CSR: ' ,bin(int.from_bytes(versal_dev.dma_read(0x1013e0000, 4), 'little')))
+
+    # versal_dev.npi_reconfigure("/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.rnpi")
+
+    kernel_test(versal_dev, hash_kernel_0)
+
+    # versal_dev.cfu_reconfigure("/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/uncompressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.rcdo")
+    # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_keccak512_inst_0_partial.pdi')
+    # print("cfu ctrl: ", bin(int.from_bytes(versal_dev.dma_read(0x1012b001c, 4), 'little')))
+    # print("cfu ISR: ", bin(int.from_bytes(versal_dev.dma_read(0x1012b0000, 4), 'little')))
+    # kernel_test(versal_dev, hash_kernel_0)
+    # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_keccak512_inst_0_partial.pdi')
+
+    # sleep(5)
+    # kernel_test(versal_dev, hash_kernel_0)
 
     #simple_kernel_test(dev, kernel_0)
     

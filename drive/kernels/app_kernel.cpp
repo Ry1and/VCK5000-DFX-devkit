@@ -2,13 +2,13 @@
 #include <unistd.h>
 
 #include "app_kernel.h"
-#include "../dma_io.h"
+#include "../xdma_io.h"
 #include "../utils.h"
 
 
 int AppKernel::get_done(){
     int res;
-    XDMA_READ(base_addr + ctrl_offset, (char *)&res);
+    XDMA_READ_WORD(base_addr + ctrl_offset, (char *)&res);
     printf("%08x\n", res);
     return (res & 0x2) == 0x2;
 
@@ -21,7 +21,7 @@ void AppKernel::set_start(){
 
 void AppKernel::get_ctrl_reg(){
     char *buf = (char *)malloc(4);
-    XDMA_READ(base_addr + ctrl_offset, buf);
+    XDMA_READ_WORD(base_addr + ctrl_offset, buf);
     printf("%08x\n", int_from_bytes(buf));
 }
 

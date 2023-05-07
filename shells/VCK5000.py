@@ -46,9 +46,9 @@ class VCK5000:
         self.cfu_base_addr = 0x0001_012b_0000
         self.cfu_fgcr_offset = 0x18
         self.cfu_status_offset = 0x100
+        
 
-      
-
+        
 
 
     # def bypass_read(self, addr, size):
@@ -95,7 +95,7 @@ class VCK5000:
         # self.dma_write(self.sbi_ctrl_base_addr + 0x4, (0x29).to_bytes(4, 'little'))
         # print("after: ", os.SEEK_CUR)
 
-        self.dma_write(self.sbi_base_addr + 0x4, (0x9).to_bytes(4, 'little'))
+        self.dma_write(self.sbi_base_addr + 0x4, (0x9).to_bytes(1, 'little'))
 
     def get_cfu_stream_busy(self):
         return int.from_bytes(self.dma_read(self.cfu_base_addr + self.cfu_status_offset, 4), "little") & 0x1 == 0x1
@@ -126,6 +126,8 @@ class VCK5000:
         # conf_timer.start()
         subprocess.run(["./dma-tools/dma_to_device", "-v", "-d", "/dev/xdma0_h2c_0", "-k", "4096", "-f", pdi_path, "-s" ,str(pdi_size), "-a", "0x102100000"])
 
+
+
         # conf_timer.join()
         reconf_end = time.clock_gettime_ns(time.CLOCK_MONOTONIC)
         
@@ -137,3 +139,18 @@ class VCK5000:
         #     while seg := pdi_file.read(4 * 1024):
         #         #print(seg)
         #         self.dma_write(self.sbi_base_addr, seg)
+
+
+    def cfu_reconfigure(self, rcdo_path):
+        rcdo_size = os.path.getsize(rcdo_path)
+        print("start sending rcdo file to cfu/cfi, file size: ", rcdo_path)
+        #subprocess.run(["./dma-tools/dma_to_device", "-v", "-d", "/dev/xdma0_h2c_0", "-k", "4096", "-f", rcdo_path, "-s" ,str(rcdo_size), "-a", "0x1012C0000"])
+        subprocess.run(["./dma-tools/dma_to_device", "-v", "-d", "/dev/xdma0_h2c_0", "-k", "4096", "-f", rcdo_path, "-s" ,str(rcdo_size), "-a", "0x101F80000"])
+        print("finish sending rcdo file to cfu/cfi")
+
+
+    def npi_reconfigure(self, rnpi_path):
+        rnpi_size = os.path.getsize(rnpi_path)
+        print("start sending rnpi file to npi, file size: ", rnpi_path)
+        subprocess.run(["./dma-tools/dma_to_device", "-v", "-d", "/dev/xdma0_h2c_0", "-k", "4096", "-f", rnpi_path, "-s" ,str(rnpi_size), "-a", "0x00101300000"])
+        print("finish sending rnpi file to npi")

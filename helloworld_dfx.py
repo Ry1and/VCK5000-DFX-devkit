@@ -119,13 +119,13 @@ if __name__ == "__main__":
     #get_sbi_status()
     
     # enable sbi
-    dev.enable_sbi()
+    #dev.enable_sbi()
     #get_sbi_status()
 
-    dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel/simple_kernel_i_RP0_RM0_inst_0_partial.pdi')
-    simple_kernel_test(dev, kernel_1)
+    # dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel/simple_kernel_i_RP0_RM0_inst_0_partial.pdi')
+    # simple_kernel_test(dev, kernel_1)
 
-    print(0, bin(int.from_bytes(dev.dma_read(0x001_012b_0018, 1), "little")))
+    # print(0, bin(int.from_bytes(dev.dma_read(0x001_012b_0018, 1), "little")))
 
     #dummy_rw_test(dev)
 
@@ -136,10 +136,17 @@ if __name__ == "__main__":
 
 
     
+    # dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel/compressed/simple_kernel_i_RP0_RM1_inst_0_partial.pdi')
 
+    # simple_kernel_test(dev, kernel_1)
 
-    # Load kernel 0
-    dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel/simple_kernel_i_RP0_RM1_inst_0_partial.pdi')
+    # # # Load kernel 0
+    # dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel/compressed/simple_kernel_i_RP0_RM0_inst_0_partial.pdi')
 
     simple_kernel_test(dev, kernel_0)
+
+
+    # dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/simple_kernel/uncompressed/simple_kernel_i_RP0_RM0_inst_0_partial.pdi')
+
+    # simple_kernel_test(dev, kernel_0)
     

@@ -21,7 +21,7 @@ $(SUBDIRS):
 
 
 
-hash_test: test_main.o tests/reconf_test.o tests/dma_test.o dma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o
+hash_test: test_main.o tests/hash_test.o tests/simple_kernel_test.o tests/reconf_test.o tests/dma_test.o xdma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o kernels/adder_kernel.o kernels/multiplier_kernel.o kernels/helloworld.o
 	g++ $^ -o $@
 
 

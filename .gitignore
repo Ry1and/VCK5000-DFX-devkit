@@ -1,5 +1,6 @@
 .vscode/
 
+*main*
 
 # Ignore all
 drive/kernels/*.o

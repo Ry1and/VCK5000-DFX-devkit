@@ -14,8 +14,8 @@ protected:
     int get_done();
 
 public:
-    AppKernel()
-    : DummyKernel()
+    AppKernel(uint64_t base_addr)
+    : DummyKernel(base_addr)
     {
         ctrl_offset = 0x00;
     }

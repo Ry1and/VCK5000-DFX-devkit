@@ -1,5 +1,5 @@
 #include "helloworld.h"
-#include "../dma_io.h"
+#include "../xdma_io.h"
 #include "../utils.h"
 
 
@@ -28,8 +28,13 @@ void Helloworld::set_fetch_offset(uint64_t val){
 int Helloworld::get_result() {
 
     int res;
-    XDMA_READ(base_addr + ctrl_offset, (char *)&res);
+    XDMA_READ_WORD(base_addr + ret_offset, (char *)&res);
     return res;
 
 }
 
+
+int Helloworld::compute_result(int *in_arr, int size) {
+    return 0;
+
+}

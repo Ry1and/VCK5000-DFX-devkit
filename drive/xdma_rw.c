@@ -22,7 +22,7 @@
 
 #include "cdev_sgdma.h"
 
-#include "dma_io.h"
+#include "xdma_io.h"
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #define ltohl(x)       (x)
