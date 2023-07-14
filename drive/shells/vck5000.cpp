@@ -67,11 +67,21 @@ int VCK5000::get_sbi_mode(){
 
 int VCK5000::get_sbi_ctrl(){
     char *buf = (char *)malloc(4);
+    //XDMA_BYPASS_READ_WORD(sbi_base_addr + 0x4 - bypass_offset, buf);
+    dma_read(XDMA_C2H_0, sbi_base_addr + 0x4, 0, 4, 0, 1, buf);
+    return int_from_bytes(buf);
+
+}
+
+
+int VCK5000::get_sbi_ctrl_bypass(){
+    char *buf = (char *)malloc(4);
     XDMA_BYPASS_READ_WORD(sbi_base_addr + 0x4 - bypass_offset, buf);
     //dma_read(XDMA_C2H_0, sbi_base_addr + 0x4, 0, 4, 0, 1, buf);
     return int_from_bytes(buf);
 
 }
+
 
 int VCK5000::get_sbi_status() {
     char *buf = (char *)malloc(4);
@@ -89,10 +99,15 @@ int VCK5000::get_sbi_irq_status() {
 
 }
 
-int VCK5000::enable_sbi() {
+int VCK5000::enable_sbi_bypass() {
     //dma_write(XDMA_H2C_0, sbi_base_addr + 0x4, 0, 4, 0, 1, bytes_from_int(0x29), 0);
     //XDMA_BYPASS_WRITE_WORD(sbi_base_addr + sbi_mode_offset - bypass_offset, bytes_from_int(0x0));
     XDMA_BYPASS_WRITE_WORD(sbi_base_addr + 0x4 - bypass_offset, bytes_from_int(0x9));
+    return 0;
+}
+
+int VCK5000::enable_sbi() {
+    dma_write(XDMA_H2C_0, sbi_base_addr + 0x4, 0, 4, 0, 1, bytes_from_int(0x9), 0);
     return 0;
 }
 
@@ -105,10 +120,14 @@ int VCK5000::reset_sbi() {
 
 int VCK5000::get_ppu_rst_mode() {
     char *buf = (char *)malloc(4);
-    dma_bypass_read(XDMA_BYPASS, ppu_rst_mode_addr, 'w', buf);
+    XDMA_BYPASS_READ_WORD(ppu_rst_mode_addr - bypass_offset, buf);
     return int_from_bytes(buf);
 }
 
+
+int VCK5000::wake_up_ppu() {
+    XDMA_BYPASS_WRITE_WORD(sbi_base_addr + 0x4 - bypass_offset, bytes_from_int(0x9));
+}
 
 int VCK5000::sbi_reconfigure(char *path) {
     struct stat st;
@@ -129,7 +148,6 @@ int VCK5000::sbi_reconfigure(char *path) {
     } else {
         printf("reconfiguration successful\n");
     }
-
 
     return 0;
 }

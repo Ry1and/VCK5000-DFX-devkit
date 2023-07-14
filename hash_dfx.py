@@ -100,8 +100,8 @@ def get_sbi_status(dev):
 
 
 if __name__ == "__main__":
-    hash_kernel_0_base_addr = 0x0201_0001_0000
-
+    hash_adaptor_base_addr = 0x0201_0001_0000
+    dfx_controller_base_addr = 0x0201_C000_0000
     
    
     dram_base_addr_1 = 0x0008_0000_0000
@@ -134,10 +134,16 @@ if __name__ == "__main__":
     # print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
     # versal_dev.dma_write(xppu_base_addr + 0xFC, (0xFF).to_bytes(4, 'little'))
 
+
+    # transfer PDI to DDR
+    versal_dev.dma_write()
+
+    
+
     # enable sbi
     print('SBI_CTRL: ' + str(hex(versal_dev.get_sbi_ctrl())))
     versal_dev.enable_sbi()
-    print('cmn_buf_space: ' ,int.from_bytes(versal_dev.dma_read(0x10122000c, 4), 'little') & 0b1111111111000)
+    #print('cmn_buf_space: ' ,int.from_bytes(versal_dev.dma_read(0x10122000c, 4), 'little') & 0b1111111111000)
     # print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
     # print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
     #print("sbi common buffer space: ", versal_dev.get_sbi_status() & 0b1111111111000)
@@ -149,6 +155,8 @@ if __name__ == "__main__":
     # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.pdi')
 
     
+    
+
 
 
 
@@ -160,12 +168,12 @@ if __name__ == "__main__":
     # print("cfu ctrl: ", bin(int.from_bytes(versal_dev.dma_read(0x1012b001c, 4), 'little')))
     # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_keccak512_inst_0_partial.pdi')
     # versal_dev.cfu_reconfigure("/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/uncompressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.rcdo")
-    print('cmn_buf_space: ' ,int.from_bytes(versal_dev.dma_read(0x10122000c, 4), 'little') & 0b1111111111000)
+    #print('cmn_buf_space: ' ,int.from_bytes(versal_dev.dma_read(0x10122000c, 4), 'little') & 0b1111111111000)
     #print('PMC_INT_CSR: ' ,bin(int.from_bytes(versal_dev.dma_read(0x1013e0000, 4), 'little')))
 
     # versal_dev.npi_reconfigure("/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.rnpi")
 
-    kernel_test(versal_dev, hash_kernel_0)
+    #kernel_test(versal_dev, hash_kernel_0)
 
     # versal_dev.cfu_reconfigure("/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/uncompressed/design_1_i_RP_HASH_0_wire512_inst_1_partial.rcdo")
     # versal_dev.sbi_reconfigure('/home/neutronmgr/backup/dfx_binaries/wsl-ubuntu22.04+2022.2/hash_kernel_wire+keccak/compressed/design_1_i_RP_HASH_0_keccak512_inst_0_partial.pdi')

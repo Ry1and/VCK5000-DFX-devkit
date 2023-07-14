@@ -41,6 +41,7 @@ private:
     
     int get_cfu_stream_busy();
     void cfu_monitor();
+    int wake_up_ppu();
 
 public:
     VCK5000(int sid);
@@ -49,8 +50,10 @@ public:
     // SBI
     int get_sbi_mode();
     int get_sbi_ctrl();
+    int get_sbi_ctrl_bypass();
     int get_sbi_status();
     int get_sbi_irq_status();
+    int enable_sbi_bypass();
     int enable_sbi();
     int reset_sbi();
     int sbi_reconfigure(char *path);
