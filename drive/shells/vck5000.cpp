@@ -12,6 +12,7 @@
 #include "../utils.h"
 #include "vck5000.h"
 
+
 using namespace std;
 
 
@@ -129,7 +130,7 @@ int VCK5000::wake_up_ppu() {
     XDMA_BYPASS_WRITE_WORD(sbi_base_addr + 0x4 - bypass_offset, bytes_from_int(0x9));
 }
 
-int VCK5000::sbi_reconfigure(char *path) {
+int VCK5000::sbi_reconfigure(char *path, io_stat* io_st) {
     struct stat st;
     long pdi_size = 0;
     if (!stat(path, &st)){
@@ -143,33 +144,37 @@ int VCK5000::sbi_reconfigure(char *path) {
 
 
 
-    if(dma_write(XDMA_H2C_0, sbi_stream_addr, 4096, pdi_size, 0, 1, path, 1)) {
+    if(dma_write_stat(XDMA_H2C_0, sbi_stream_addr, 65536, pdi_size, 0, 1, path, 1, io_st)) {
         printf("reconfiguration unsuccessful\n");
     } else {
         printf("reconfiguration successful\n");
     }
+
+    // for (int ptr = 0; ptr < pdi_size; ptr++) {
+    //     dma_write(XDMA_H2C_0, sbi_stream_addr + ptr % 4096, 0, pdi_size, 0, 1, path, 1)
+    // }
 
     return 0;
 }
 
-int VCK5000::cfu_reconfigure(char *path) {
-    struct stat st;
-    long rcdo_size = 0;
-    if (!stat(path, &st)){
-        rcdo_size = st.st_size;
-    } else {
-        perror("stat");
-    }
-    printf("Size of reconf image: %ld\n", rcdo_size);
-    printf("start reconfiguration\n");
+// int VCK5000::cfu_reconfigure(char *path) {
+//     struct stat st;
+//     long rcdo_size = 0;
+//     if (!stat(path, &st)){
+//         rcdo_size = st.st_size;
+//     } else {
+//         perror("stat");
+//     }
+//     printf("Size of reconf image: %ld\n", rcdo_size);
+//     printf("start reconfiguration\n");
 
-    if(dma_write(XDMA_H2C_0, 0x1012C0000, 4096, rcdo_size, 0, 1, path, 1)) {
-        printf("reconfiguration unsuccessful\n");
-    } else {
-        printf("reconfiguration successful\n");
-    }
+//     if(dma_write(XDMA_H2C_0, 0x1012C0000, 4096, rcdo_size, 0, 1, path, 1)) {
+//         printf("reconfiguration unsuccessful\n");
+//     } else {
+//         printf("reconfiguration successful\n");
+//     }
 
     
 
-    return 0;
-}
+//     return 0;
+// }

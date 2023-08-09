@@ -1,4 +1,4 @@
-all: $(SUBDIRS) $(C_OBJS) $(CPP_OBJS) hash_test
+all: $(SUBDIRS) $(C_OBJS) $(CPP_OBJS) pr_pcie_test pr_ddr_test dfx_bench
 
 CXX := g++ 
 CC := gcc
@@ -21,10 +21,14 @@ $(SUBDIRS):
 
 
 
-hash_test: test_main.o tests/hash_test.o tests/simple_kernel_test.o tests/reconf_test.o tests/dma_test.o xdma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o kernels/adder_kernel.o kernels/multiplier_kernel.o kernels/helloworld.o
+pr_pcie_test: pr_pcie_main.o tests/hash_test.o tests/simple_kernel_test.o  tests/dma_test.o xdma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o kernels/adder_kernel.o kernels/multiplier_kernel.o kernels/helloworld.o
 	g++ $^ -o $@
 
+pr_ddr_test: pr_ddr_main.o tests/hash_test.o tests/simple_kernel_test.o tests/dma_test.o xdma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o kernels/adder_kernel.o kernels/multiplier_kernel.o kernels/helloworld.o
+	g++ $^ -o $@
 
+dfx_bench: dfx_bench.o tests/hash_test.o tests/simple_kernel_test.o tests/dma_test.o xdma_rw.o utils.o shells/vck5000.o kernels/hash_kernel.o kernels/app_kernel.o kernels/adder_kernel.o kernels/multiplier_kernel.o kernels/helloworld.o
+	g++ $^ -o $@
 
 $(C_OBJS): %.o : %.c
 	$(CXX) -c $< -o $@

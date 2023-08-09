@@ -1,7 +1,7 @@
 #ifndef __XDMA_IO_H
 #define __XDMA_IO_H
 
-
+#include "io_bench.h"
 /*
     XDMA description files
 */
@@ -31,10 +31,13 @@
 #define XDMA_BYPASS_READ_WORD(addr, buffer) dma_bypass_read(XDMA_BYPASS, addr, 'w', buffer);
 #define XDMA_BYPASS_WRITE_WORD(addr, input) dma_bypass_write(XDMA_BYPASS, addr, 'w', input);
 
+int dma_write_stat(char *devname, uint64_t addr, uint64_t aperture,
+		    uint64_t size, uint64_t offset, uint64_t count,
+		    char *in, int path, io_stat* stat);
+
 int dma_write(char *devname, uint64_t addr, uint64_t aperture,
 		    uint64_t size, uint64_t offset, uint64_t count,
 		    char *in, int path);
-
 
 int dma_read(char *devname, uint64_t addr, uint64_t aperture,
 			uint64_t size, uint64_t offset, uint64_t count,

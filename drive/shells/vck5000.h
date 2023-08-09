@@ -2,6 +2,7 @@
 #define VCK_H__
 
 #include <sys/time.h>
+#include "../io_bench.h"
 
 using namespace std;
 
@@ -56,7 +57,7 @@ public:
     int enable_sbi_bypass();
     int enable_sbi();
     int reset_sbi();
-    int sbi_reconfigure(char *path);
+    int sbi_reconfigure(char *path, io_stat* io_st);
 
     // PPU
     int get_ppu_rst_mode();
