@@ -29,6 +29,11 @@ private:
     uint64_t cfu_fgcr_offset = 0x18;
     uint64_t cfu_status_offset = 0x100;
     
+    // PMC
+    uint64_t pmc_axi_cfustream = 0x1390000;
+    uint64_t pmc_axi_sbi = 0x13e0000;
+    uint64_t pmc_axi_npi = 0x13a0000;
+
     // PPU
     uint64_t ppu_rst_mode_addr = 0x00101110624;
 
@@ -64,6 +69,11 @@ public:
 
     int cfu_reconfigure(char *path);
 
+    // pmc
+    int get_pmc_axi_sbi();
+    int get_pmc_axi_cfu();
+    int get_pmc_axi_npi();
+    
  //   int ddr_test();
 
 
