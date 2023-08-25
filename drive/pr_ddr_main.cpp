@@ -1,5 +1,4 @@
 #include "tests/hash_test.h"
-#include "tests/reconf_test.h"
 #include "kernels/hash_kernel.h"
 #include "shells/vck5000.h"
 #include "tests/dma_test.h"
@@ -74,8 +73,8 @@ int main() {
 
 
     
-    dma_write(XDMA_H2C_0, dram_base_addr_0, 0, 238683, 0, 1, "/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/wire/uncompressed/keccak_basic_i_hash_core_wire512_inst_0_partial.pdi", 1);
-    //dma_write(XDMA_H2C_0, dram_base_addr_0, 0, 8842592, 0, 1, "/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/keccak_big/XDMA/uncompressed/keccak_basic_i_hash_core_keccak512_inst_0_partial.pdi", 1);
+    //dma_write(XDMA_H2C_0, dram_base_addr_0, 0, 238683, 0, 1, "/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/wire/uncompressed/keccak_basic_i_hash_core_wire512_inst_0_partial.pdi", 1);
+    dma_write(XDMA_H2C_0, dram_base_addr_0, 0, 8842592, 0, 1, "/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/keccak_big/XDMA/uncompressed/keccak_basic_i_hash_core_keccak512_inst_0_partial.pdi", 1);
     
     //XDMA_WRITE_WORD(dfx_controller_base_addr + size_offset, bytes_from_int(2183392));
     XDMA_WRITE_WORD(dfx_controller_base_addr + size_offset, bytes_from_int(138914));

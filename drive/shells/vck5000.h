@@ -45,7 +45,7 @@ private:
     // ddr
 
     
-    int get_cfu_stream_busy();
+    int get_cfu_status();
     void cfu_monitor();
     int wake_up_ppu();
 
@@ -62,6 +62,7 @@ public:
     int enable_sbi_bypass();
     int enable_sbi();
     int reset_sbi();
+    int get_sbi_reset();
     int sbi_reconfigure(char *path, io_stat* io_st);
 
     // PPU

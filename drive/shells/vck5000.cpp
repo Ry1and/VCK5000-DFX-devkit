@@ -30,29 +30,15 @@ VCK5000::~VCK5000()
 /*
     Private method
 */
-int VCK5000::get_cfu_stream_busy(){
+int VCK5000::get_cfu_status(){
         char *buf = (char *)malloc(4);
-        dma_bypass_read(XDMA_BYPASS, cfu_base_addr + cfu_status_offset, 'w', buf);
+        XDMA_BYPASS_READ_WORD(cfu_base_addr + cfu_status_offset, buf);
         //dma_read(XDMA_BYPASS, cfu_base_addr + cfu_status_offset, 0,4,0,1, buf);
-        return *buf & 0x1;
+        return int_from_bytes(buf);
 
     }
 
 
-void VCK5000::cfu_monitor(){
-    while (!this->get_cfu_stream_busy()) {
-        printf("timer waiting cfu...");
-        usleep(1);
-    }
-
-    while (this->get_cfu_stream_busy()) {
-        printf("cfu busy...");
-        usleep(1);
-    }
-
-    clock_gettime(CLOCK_MONOTONIC, &reconf_end);
-
-}
 
 
 /*
@@ -119,6 +105,14 @@ int VCK5000::reset_sbi() {
 }
 
 
+int VCK5000::get_sbi_reset() {
+    char *buf = (char *)malloc(1);
+    dma_bypass_read(XDMA_BYPASS, sbi_reset_addr, 'b', buf);
+    return int_from_bytes(buf);
+
+}
+
+
 int VCK5000::get_ppu_rst_mode() {
     char *buf = (char *)malloc(4);
     XDMA_BYPASS_READ_WORD(ppu_rst_mode_addr - bypass_offset, buf);
@@ -132,19 +126,19 @@ int VCK5000::wake_up_ppu() {
 
 int VCK5000::get_pmc_axi_sbi() {
     char *buf = (char *)malloc(4);
-    XDMA_BYPASS_READ_WORD(pmc_axi_sbi - bypass_offset, buf);
+    XDMA_BYPASS_READ_WORD(pmc_axi_sbi, buf);
     return int_from_bytes(buf);
 }
 
 int VCK5000::get_pmc_axi_cfu() {
     char *buf = (char *)malloc(4);
-    XDMA_BYPASS_READ_WORD(pmc_axi_cfustream - bypass_offset, buf);
+    XDMA_BYPASS_READ_WORD(pmc_axi_cfustream, buf);
     return int_from_bytes(buf);
 }
 
 int VCK5000::get_pmc_axi_npi() {
     char *buf = (char *)malloc(4);
-    XDMA_BYPASS_READ_WORD(pmc_axi_npi - bypass_offset, buf);
+    XDMA_BYPASS_READ_WORD(pmc_axi_npi, buf);
     return int_from_bytes(buf);
 }
 
@@ -160,10 +154,8 @@ int VCK5000::sbi_reconfigure(char *path, io_stat* io_st) {
     printf("start reconfiguration\n");
     //thread conf_timer(&VCK5000::cfu_monitor, this);
 
-    printf("pmc_axi registers before reconf");
-    printf("pmc_axi_sbi, %x\n", get_pmc_axi_sbi());
-    printf("pmc_axi_cfustream, %x\n", get_pmc_axi_sbi());
-    printf("pmc_axi_sbi, %x\n", get_pmc_axi_sbi());
+    printf("cfu status before reconf: 0x%x\n", get_cfu_status());
+
 
     if(dma_write_stat(XDMA_H2C_0, sbi_stream_addr, 65536, pdi_size, 0, 1, path, 1, io_st)) {
         printf("reconfiguration unsuccessful\n");
@@ -171,10 +163,8 @@ int VCK5000::sbi_reconfigure(char *path, io_stat* io_st) {
         printf("reconfiguration successful\n");
     }
 
-    printf("pmc_axi registers before reconf");
-    printf("pmc_axi_sbi, %x\n", get_pmc_axi_sbi());
-    printf("pmc_axi_cfustream, %x\n", get_pmc_axi_sbi());
-    printf("pmc_axi_sbi, %x\n", get_pmc_axi_sbi());
+    printf("cfu status after reconf: 0x%x\n", get_cfu_status());
+
 
     // for (int ptr = 0; ptr < pdi_size; ptr++) {
     //     dma_write(XDMA_H2C_0, sbi_stream_addr + ptr % 4096, 0, pdi_size, 0, 1, path, 1)

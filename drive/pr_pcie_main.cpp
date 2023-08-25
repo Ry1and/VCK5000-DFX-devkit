@@ -54,7 +54,7 @@ int main() {
     //vb.reset_sbi();
 
 
-    printf("sbi ctrl: 0x%x\n", vb.get_sbi_ctrl_bypass());
+    vb.reset_sbi();
     vb.enable_sbi();
     printf("sbi ctrl: 0x%x\n", vb.get_sbi_ctrl_bypass());
 
@@ -65,14 +65,15 @@ int main() {
     // printf("PPU_RST_MODE: %x\n", vb.get_ppu_rst_mode());
     io_stat stat;
 
-    vb.sbi_reconfigure("/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/groestl/XDMA/compressed/keccak_basic_i_hash_core_groestl512_inst_0_partial.pdi", &stat);
+    vb.sbi_reconfigure("/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/keccak/XDMA/compressed/keccak_basic_i_hash_core_keccak512_inst_0_partial.pdi", &stat);
+    //vb.sbi_reconfigure("/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/groestl/XDMA/compressed/keccak_basic_i_hash_core_groestl512_inst_0_partial.pdi", &stat);
     printf("size:%lu , time taken:%f , rate: %f\n", stat.nbytes,(float)stat.time,stat.rate);
-    //kernel_test(hk);
+    kernel_test(hk);
     //dma_write(XDMA_H2C_0, dram_base_addr_0, 4096, 8842592, 0, 1, "/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/keccak_big/XDMA/uncompressed/keccak_basic_i_hash_core_keccak512_inst_0_partial.pdi", 1);
     
     
-    vb.sbi_reconfigure("/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/groestl/XDMA/uncompressed/keccak_basic_i_hash_core_groestl512_inst_0_partial.pdi", &stat);
-    printf("size:%lu , time taken:%f , rate: %f\n", stat.nbytes,(float)stat.time,stat.rate);
+    //vb.sbi_reconfigure("/home/neutronmgr/backup/dfx_binaries/ubuntu22.04+2023.1/groestl/XDMA/uncompressed/keccak_basic_i_hash_core_groestl512_inst_0_partial.pdi", &stat);
+    //printf("size:%lu , time taken:%f , rate: %f\n", stat.nbytes,(float)stat.time,stat.rate);
     //kernel_test(hk);
     // printf("common buffer size: %d\n", vb.get_sbi_status() & 0b1111111111000);
     
